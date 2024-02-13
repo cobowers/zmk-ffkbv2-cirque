@@ -62,9 +62,6 @@
 	    bindings = <&kp SEMI>;
 	    layers = <0>;
 	};
-};
-
-/ {
 
     sensors {
         compatible = "zmk,keymap-sensors";
