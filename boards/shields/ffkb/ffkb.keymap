@@ -109,7 +109,7 @@
     &kp ESC     &kp Q       &kp W       &kp F          &kp P               &kp B               &kp J       &kp L                &kp U             &kp Y       &kp SQT     &kp MINUS
     &kp TAB     &hm LCTL A  &hm LGUI R  &hm LALT S     &hs LSHIFT T        &kp G               &kp M       &hs RSHIFT N         &hm RALT E        &hm RGUI I  &hm RCTL O  &kp SEMI
     &kp LSHIFT  &kp Z       &kp X       &kp C          &kp D               &kp V               &kp K       &kp H                &kp COMMA         &kp DOT     &kp FSLH    &kp RSHFT
-                            &kp RET     &mt LSHFT ESC  &lt L_NUM_SYM BSPC  &kp D_MUTE          &kp C_MUTE  &lt L_NAV_MED SPACE  &lt L_NUMPAD TAB  &kp DEL
+                            &kp RET     &mt LSHFT ESC  &lt L_NUM_SYM BSPC  &kp C_MUTE          &kp C_MUTE  &lt L_NAV_MED SPACE  &lt L_NUMPAD TAB  &kp DEL
             >;
         };
 
