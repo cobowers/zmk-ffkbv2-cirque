@@ -5,16 +5,28 @@
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/outputs.h>
 
-#define DEFAULT 0
-#define NAV     1
-#define SYM     2
-#define FUNC    3
-#define MEDIA   4
-#define MOUSE   5
-#define WINNAV  6
+// global config settings
+#define TAPPING_TERM 190
+#define QUICK_TAP 200
+#define COMBO_TIMEOUT 30
+
+// layer aliases
+#define L_DEFAULT 0
+#define L_NUM_SYM 1
+#define L_NAV_MED 2
+#define L_NUMPAD 3
+#define L_GAMING 4
+#define L_CONTROL 5
 
 &caps_word {
     continue-list = <UNDERSCORE MINUS>;
+};
+
+# allow hold-tap (&lt) to repeat tap the tap behaior on tap then hold
+&lt {
+    flavor = "balanced";
+    tapping-term-ms = <175>;
+    quick-tap-ms = <QUICK_TAP>;
 };
 
 / {
@@ -64,6 +76,13 @@
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
+        tdreset: tap_dance_reset {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_RESET_BOOTLOADER";
+            #binding-cells = <0>;
+            tapping-term-ms = <TAPPING_TERM>;
+            bindings = <&reset>, <&bootloader>;
+        };
     };
 
     keymap {
@@ -75,89 +94,102 @@
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
 
             bindings = <
-    &kp ESC    &kp Q        &kp W        &kp F       &kp P         &kp B                                       &kp J         &kp L        &lt WINNAV U  &kp Y       &kp SEMI    &kp BSLH
-    &kp TAB    &hm LCTL A   &hm LGUI R   &hm LALT S  &hs LSHIFT T  &kp G                                       &lt MOUSE M   &hs RSHIFT N &hm RALT E    &hm RGUI I  &hm RCTL O  &kp SQT
-    &kp LSHIFT &kp Z        &kp X        &kp C       &kp D         &kp V                                       &kp K         &kp H        &kp COMMA     &kp DOT     &kp FSLH    &kp RCTRL
-                                         &kp C_MUTE  &kp DEL       &lt NAV RET  &lt FUNC TAB  &lt MEDIA BSPC   &lt SYM SPACE &kp SQT      &kp LC(BSPC)
+    &kp ESC     &kp Q       &kp W       &kp F          &kp P               &kp B               &kp J           &kp L                &lt WINNAV U         &kp Y       &kp SQT     &kp MINUS
+    &kp TAB     &hm LCTL A  &hm LGUI R  &hm LALT S     &hs LSHIFT T        &kp G               &kp M           &hs RSHIFT N         &hm RALT E           &hm RGUI I  &hm RCTL O  &kp SEMI
+    &kp LSHIFT  &kp Z       &kp X       &kp C          &kp D               &kp V               &kp K           &kp H                &kp COMMA            &kp DOT     &kp FSLH    &kp RSHFT
+                            &kp RET     &mt LSHFT ESC  &lt L_NUM_SYM BSPC  &lt FUNC TAB        &lt MEDIA BSPC  &lt L_NAV_MED SPACE  &lt L_NUMPAD TAB     &kp DEL
             >;
         };
 
-        nav_layer {
-            label = "Navigation";
-            
-            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
-            
-            bindings = <
-    &trans     &kp ESC      &kp PG_UP    &kp UP      &kp PG_DN     &trans                                      &kp ASTRK     &kp N7       &kp N8        &kp N9      &kp MINUS   &trans
-    &trans     &kp HOME     &kp LEFT     &kp DOWN    &kp RIGHT     &kp END                                     &kp FSLH      &kp N4       &kp N5        &kp N6      &kp PLUS    &trans
-    &trans     &trans       &trans       &trans      &trans        &trans                                      &kp EQUAL     &kp N1       &kp N2        &kp N3      &kp N0      &trans
-                                         &trans      &trans        &trans       &kp TAB       &kp BSPC         &kp SPACE     &kp DOT      &trans
-            >;
-        };
-
-        sym_layer {
-            label = "Symbols";
-            
-            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
-            
-            bindings = <
-    &trans     &kp EXCL     &kp AT       &kp HASH        &kp DLLR         &kp PRCNT                                   &kp CARET     &kp AMPS          &kp ASTRK     &kp UNDER   &kp EQUAL   &trans
-    &trans     &kp MINUS    &kp LBKT     &kp LBRC        &kp LPAR         &kp LT                                      &kp GT        &kp RPAR          &kp RBRC      &kp RBKT    &kp PLUS    &trans
-    &trans     &kp CAPS     &kp GRAVE    &kp LC(LS(TAB)) &kp LC(LG(LEFT)) &caps_word                                  &trans        &kp LC(LG(RIGHT)) &kp LC(TAB)   &trans      &kp BSLH    &trans
-                                         &trans          &trans           &kp RET       &kp DEL        &kp BSPC       &trans        &trans            &trans
-            >;
-        };
-
-        func_layer {
-            label = "Function";
+        number_symbol_layer {  // 1
+            label = "Numbers And Symbols";
 
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
-            
+
+// -----------------------------------------------------------------------------------------
+// |      |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  |      |
+// |      |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  |      |
+// |      |  \  |  :  |  ;  |  {  |  [  |   |  ]  |  }  |  =  |  +  |  -  |      |
+//                    |     |     |     |   |     |     |     |
             bindings = <
-    &trans     &trans       &kp LS(PG_UP) &kp LS(UP)   &kp LS(PG_DN) &trans                                      &kp C_PLAY_PAUSE &kp F7       &kp F8        &kp F9      &kp F10     &trans
-    &trans     &kp LS(HOME) &kp LS(LEFT)  &kp LS(DOWN) &kp LS(RIGHT) &kp LS(END)                                 &kp K_VOL_UP     &kp F4       &kp F5        &kp F6      &kp F11     &trans
-    &trans     &trans       &trans        &trans       &trans        &kp C_MUTE                                  &kp K_VOL_DN     &kp F1       &kp F2        &kp F3      &kp F12     &trans
-                                          &trans       &trans        &trans        &trans         &trans         &trans           &kp SPACE    &trans
+    &trans  &kp EXCL   &kp AT     &kp HASH  &kp DLLR      &kp PRCNT       &kp CARET  &kp AMPS       &kp KP_MULTIPLY  &kp LPAR  &kp RPAR   &trans
+    &trans  &kp N1     &kp N2     &kp N3    &mt LSHFT N4  &kp N5          &kp N6     &mt RSHFT N7   &kp N8           &kp N9    &kp N0     &trans
+    &trans  &kp BSLH   &kp COLON  &kp SEMI  &kp LBRC      &kp LBKT        &kp RBKT   &kp RBRC       &kp EQUAL        &kp PLUS  &kp MINUS  &trans
+                       &trans     &trans    &trans        &trans          &trans     &mo L_CONTROL  &trans           &trans
             >;
         };
 
-        media_layer {
-            label = "Media";
-            
-            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
-            
-            bindings = <
-    &rgb_ug RGB_COLOR_HSB(0,0,100)         &rgb_ug RGB_TOG  &rgb_ug RGB_EFR  &rgb_ug RGB_EFF &trans            &trans                            &trans             &bt BT_PRV        &bt BT_NXT         &trans         &trans          &trans
-    &rgb_ug RGB_COLOR_HSB(224,100,100)     &trans           &rgb_ug RGB_HUI  &rgb_ug RGB_SAI &rgb_ug RGB_BRI   &rgb_ug RGB_SPI                   &bt BT_CLR         &bt BT_SEL 0      &bt BT_SEL 1       &bt BT_SEL 2   &bt BT_SEL 3    &trans
-    &rgb_ug RGB_COLOR_HSB(278,100,100)     &trans           &rgb_ug RGB_HUD  &rgb_ug RGB_SAD &rgb_ug RGB_BRD   &rgb_ug RGB_SPD                   &ext_power EP_TOG  &ext_power EP_ON  &ext_power EP_OFF  &out OUT_USB   &out OUT_BLE    &trans
-                                                                            &trans          &trans            &trans        &trans         &trans         &trans           &trans     &trans
-            >;
-        };
+        nav_media_layer {  // 2
+            label = "Navigation And Media";
 
-        mouse_layer {
-            label = "Mouse";
-            
-            sensor-bindings = <&inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP &inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP>;
-            
-            bindings = <
-    &trans     &bootloader &trans      &trans      &trans      &trans                                           &trans      &trans      &trans      &trans      &trans      &trans
-    &trans     &trans      &trans      &trans      &trans      &trans                                           &trans      &trans      &trans      &trans      &trans      &trans
-    &trans     &trans      &trans      &trans      &trans      &trans                                           &trans      &trans      &trans      &trans      &trans      &trans
-                                         &trans      &trans        &trans        &trans         &trans          &trans      &trans      &trans
-            >;
-        };
-
-        winnav_layer {
-            label = "Win Navigation";
-            
             sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
-            
-            bindings = <
-    &trans     &trans       &trans       &kp LG(UP)   &trans        &trans                                      &trans      &trans      &trans      &trans      &trans      &trans
-    &trans     &trans       &kp LG(LEFT) &kp LG(DOWN) &kp LG(RIGHT) &trans                                      &trans      &trans      &trans      &trans      &trans      &trans
-    &trans     &trans       &trans       &trans       &trans        &trans                                      &trans      &trans      &trans      &trans      &trans      &trans
-                                         &trans       &trans        &trans        &trans         &trans         &trans        &trans       &trans
+
+// -----------------------------------------------------------------------------------------
+// |      |  F1 | F2  | F3  | F4  | F5  |   | F6   |  F7  | F8   | F9  | F10  |      |
+// |      | PUP | PRN | BT3 | BT4 | F11 |   | LCLK | LFT  | DOWN | UP  | RGT  |      |
+// |      | PDN | SLK |     |     | F12 |   | RCLK | MLFT | MDWN | MUP | MRGT |      |
+//                    | GUI |     |     |   |      |      |      |
+                        bindings = <
+    &trans  &kp F1     &kp F2         &kp F3      &kp F4         &kp F5               &kp F6     &kp F7       &kp F8       &kp F9     &kp F10       &trans
+    &trans  &kp PG_UP  &th_print_win  &trans      &kp C_VOL_UP   &kp F11              &trans     &kp LEFT     &kp DOWN     &kp UP     &kp RIGHT     &trans
+    &trans  &kp PG_DN  &kp SLCK       &kp C_MUTE  &kp C_VOL_DN   &kp F12              &trans     &trans       &trans       &trns      &trans        &trans
+                	      &trans         &td1        &mo L_CONTROL  &trans               &trans     &trans       &trans       &trans
             >;
         };
+
+        numpad_layer {  // 3
+            label = "Number Pad";
+
+            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
+
+// -----------------------------------------------------------------------------------------
+// |      |     |     |     |     |     |   |   *  | NUM7 | NUM8 |  NUM9  |  -  |      |
+// |      |     |     |     |     |     |   |   /  | NUM4 | NUM5 |  NUM6  |  +  |      |
+// |      |     |     |     |     |     |   | NUM0 | NUM1 | NUM2 |  NUM3  |  .  |      |
+//                    |     |     | L0  |   | ENTR | BSPC |      |
+            bindings = <
+    &trans  &trans  &trans  &trans  &trans         &trans               &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &kp BSPC
+    &trans  &trans  &trans  &trans  &trans         &trans               &kp KP_DIVIDE    &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_PLUS   &trans
+    &trans  &trans  &trans  &trans  &trans         &trans               &kp KP_N0        &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_DOT    &kp KP_ENTER
+                    &trans  &trans  &to L_DEFAULT  &trans               &trans           &trans     &trans     &trans
+            >;
+        };
+
+        gaming_layer {  // 4
+            label = "Gaming";
+
+            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
+
+// -----------------------------------------------------------------------------------------
+// |      | TAB  |  Q  |  W  |  E  |  R  |   |     |     |     |     |     |      |
+// |      | SHFT |  A  |  S  |  D  |  F  |   |     |     |     |     |     |      |
+// |      | CTRL |  X  |  C  |  V  |  B  |   |     |     |     |     |     |      |
+//                     |     |     | SPC |   | L0  |     |     |
+                        bindings = <
+    &kp TAB     &kp T  &kp Q  &kp W    &kp E      &kp R            &trans  &trans         &trans  &trans  &trans  &trans
+    &kp LSHIFT  &kp G  &kp A  &kp S    &kp D      &kp F            &trans  &trans         &trans  &trans  &trans  &trans
+    &kp LCTRL   &kp Z  &kp X  &kp C    &kp V      &kp B            &trans  &trans         &trans  &trans  &trans  &trans
+                       &trans  &trans  &kp SPACE  &trans           &trans  &to L_DEFAULT  &trans  &trans
+                        >;
+                };
+
+        control_layer {  // 5
+            label = "Control";
+
+            sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
+
+// -----------------------------------------------------------------------------------------
+// |  TD2 |     |     |     |     |     |   |     |     |     |     |     | TD2  |
+// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   |     |     |     |     |     |      |
+// |      |     |     |     |     |     |   |     |     |     |     |     |      |
+//                    |     |     |     |   |     |     |     |
+                        bindings = <
+    &tdreset    &trans        &trans        &trans        &trans        &trans              &trans  &trans  &trans  &trans  &trans  &tdreset
+    &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4        &trans  &trans  &trans  &trans  &trans  &out OUT_USB
+    &trans      &trans        &trans        &trans        &trans        &trans              &trans  &trans  &trans  &trans  &trans  &out OUT_BLE
+                              &trans        &trans        &trans        &trans              &trans  &trans  &trans  &trans
+            >;
+        };
+
     };
 };
