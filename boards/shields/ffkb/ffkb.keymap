@@ -22,7 +22,7 @@
     continue-list = <T N>;
 };
 
-# allow hold-tap (&lt) to repeat tap the tap behaior on tap then hold
+// allow hold-tap (&lt) to repeat tap the tap behaior on tap then hold
 &lt {
     flavor = "balanced";
     tapping-term-ms = <175>;
