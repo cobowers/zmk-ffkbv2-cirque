@@ -93,7 +93,7 @@
             label = "TAP_DANCE_RESET_BOOTLOADER";
             #binding-cells = <0>;
             tapping-term-ms = <TAPPING_TERM>;
-            bindings = <&reset>, <&bootloader>;
+            bindings = <&sys_reset>, <&bootloader>;
         };
     };
 
