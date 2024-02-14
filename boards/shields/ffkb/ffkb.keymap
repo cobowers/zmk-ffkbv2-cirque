@@ -163,10 +163,10 @@
 // |      |     |     |     |     |     |   | NUM0 | NUM1 | NUM2 |  NUM3  |  .  |      |
 //                    |     |     | L0  |   | ENTR | BSPC |      |
             bindings = <
-    &trans  &trans  &trans  &trans  &trans         &trans             &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &kp BSPC
-    &trans  &trans  &trans  &trans  &trans         &trans    &tans    &kp KP_DIVIDE    &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_PLUS   &trans
-    &trans  &trans  &trans  &trans  &trans         &trans             &kp KP_N0        &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_DOT    &kp KP_ENTER
-                    &trans  &trans  &to L_DEFAULT  &trans             &trans           &trans     &trans
+    &trans  &trans  &trans  &trans  &trans         &trans              &kp KP_MULTIPLY  &kp KP_N7  &kp KP_N8  &kp KP_N9  &kp KP_MINUS  &kp BSPC
+    &trans  &trans  &trans  &trans  &trans         &trans    &trans    &kp KP_DIVIDE    &kp KP_N4  &kp KP_N5  &kp KP_N6  &kp KP_PLUS   &trans
+    &trans  &trans  &trans  &trans  &trans         &trans              &kp KP_N0        &kp KP_N1  &kp KP_N2  &kp KP_N3  &kp KP_DOT    &kp KP_ENTER
+                    &trans  &trans  &to L_DEFAULT  &trans              &trans           &trans     &trans
             >;
         };
 
