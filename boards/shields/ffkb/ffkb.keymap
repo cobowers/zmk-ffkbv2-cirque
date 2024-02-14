@@ -6,8 +6,8 @@
 #include <dt-bindings/zmk/mouse.h>
 
 // global config settings
-#define TAPPING_TERM 190
-#define QUICK_TAP 200
+#define TAPPING_TERM 200
+#define QUICK_TAP_MS 175
 #define COMBO_TIMEOUT 35
 
 // layer aliases
@@ -30,7 +30,7 @@
 &lt {
     flavor = "balanced";
     tapping-term-ms = <175>;
-    quick-tap-ms = <QUICK_TAP>;
+    quick-tap-ms = <QUICK_TAP_MS>;
 };
 
 / {
@@ -91,7 +91,7 @@
             label = "HOMEROW_MOD";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            quick_tap_ms = <150>;
+            quick-tap-ms = <QUICK_TAP_MS>;
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
@@ -100,7 +100,7 @@
             label = "HOMEROW_MOD_LEFT";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            quick_tap_ms = <150>;
+            quick-tap-ms = <QUICK_TAP_MS>;
             flavor = "balanced";
             hold-trigger-key-positions = <RHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
@@ -110,7 +110,7 @@
             label = "HOMEROW_MOD_RIGHT";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            quick_tap_ms = <150>;
+            quick-tap-ms = <QUICK_TAP_MS>;
             flavor = "balanced";
             hold-trigger-key-positions = <LHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
@@ -120,7 +120,7 @@
             label = "HOMEROW_SHIFT";
             #binding-cells = <2>;
             tapping-term-ms = <175>;
-            quick_tap_ms = <150>;
+            quick-tap-ms = <QUICK_TAP_MS>;
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
@@ -129,7 +129,7 @@
             label = "HOMEROW_SHIFT_LEFT";
             #binding-cells = <2>;
             tapping-term-ms = <175>;
-            quick_tap_ms = <150>;
+            quick-tap-ms = <QUICK_TAP_MS>;
             flavor = "balanced";
             hold-trigger-key-positions = <RHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
@@ -139,7 +139,7 @@
             label = "HOMEROW_SHIFT_RIGHT";
             #binding-cells = <2>;
             tapping-term-ms = <175>;
-            quick_tap_ms = <150>;
+            quick-tap-ms = <QUICK_TAP_MS>;
             flavor = "balanced";
             hold-trigger-key-positions = <LHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
