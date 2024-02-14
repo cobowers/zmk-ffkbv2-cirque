@@ -23,7 +23,7 @@
 #define THUMBKEYS 38 39 40 41 42 43
 
 &caps_word {
-    continue-list = <UNDERSCORE BSPC N0 N1 N2 N3 N4 N5 N6 N7 N8 N9>;
+    continue-list = <UNDERSCORE MINUS BSPC N0 N1 N2 N3 N4 N5 N6 N7 N8 N9>;
 };
 
 // allow hold-tap (&lt) to repeat tap the tap behaior on tap then hold
@@ -67,8 +67,14 @@
 	    layers = <0>;
 	};
 	combo_capsword {
-	    timeout-ms = <35>;
+	    timeout-ms = <COMBO_TIMEOUT>;
 	    key-positions = <16 20>;
+	    bindings = <&caps_word>;
+	    layers = <0>;
+	};
+	combo_middle_mouse_click {
+	    timeout-ms = <COMBO_TIMEOUT>;
+	    key-positions = <12 25>;
 	    bindings = <&caps_word>;
 	    layers = <0>;
 	};
@@ -156,9 +162,9 @@
             sensor-bindings = <&inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP &inc_dec_kp C_VOLUME_DOWN C_VOLUME_UP>;
 
             bindings = <
-    &mkp MCLK  &kp Q        &kp W        &kp F        &kp P          &kp B                               &kp J                &kp L             &kp U        &kp Y        &kp SQT      &kp MINUS
-    &mkp RCLK  &hml LCTL A  &hml LGUI R  &hml LALT S  &hsl LSHIFT T  &kp G                 &kp C_MUTE    &kp M                &hsl RSHIFT N     &hmr RALT E  &hmr RGUI I  &hmr RCTL O  &kp SEMI
-    &mkp LCLK  &kp Z        &kp X        &kp C        &kp D          &kp V                               &kp K                &kp H             &kp COMMA    &kp DOT      &kp FSLH     &kp RSHFT
+    &kp ESC  &kp Q        &kp W        &kp F        &kp P          &kp B                               &kp J                &kp L             &kp U        &kp Y        &kp SQT      &kp MINUS
+    &mkp LCLK  &hml LCTL A  &hml LGUI R  &hml LALT S  &hsl LSHIFT T  &kp G                 &kp C_MUTE    &kp M                &hsl RSHIFT N     &hmr RALT E  &hmr RGUI I  &hmr RCTL O  &kp SEMI
+    &mkp RCLK  &kp Z        &kp X        &kp C        &kp D          &kp V                               &kp K                &kp H             &kp COMMA    &kp DOT      &kp FSLH     &kp RSHFT
                             &kp C_MUTE   &kp RET      &mt LSHFT ESC  &lt L_NUM_SYM BSPC                  &lt L_NAV_MED SPACE  &lt L_NUMPAD TAB  &kp DEL      &kp C_MUTE
             >;
         };
