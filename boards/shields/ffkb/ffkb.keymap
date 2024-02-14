@@ -8,7 +8,7 @@
 // global config settings
 #define TAPPING_TERM 190
 #define QUICK_TAP 200
-#define COMBO_TIMEOUT 30
+#define COMBO_TIMEOUT 35
 
 // layer aliases
 #define L_DEFAULT 0
@@ -85,7 +85,7 @@
             label = "HOMEROW_MOD";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            quick_tap_ms = <0>;
+            quick_tap_ms = <150>;
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
@@ -94,7 +94,7 @@
             label = "HOMEROW_MOD_LEFT";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            quick_tap_ms = <0>;
+            quick_tap_ms = <150>;
             flavor = "balanced";
             hold-trigger-key-positions = <RHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
@@ -104,7 +104,7 @@
             label = "HOMEROW_MOD_RIGHT";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            quick_tap_ms = <0>;
+            quick_tap_ms = <150>;
             flavor = "balanced";
             hold-trigger-key-positions = <LHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
@@ -114,7 +114,7 @@
             label = "HOMEROW_SHIFT";
             #binding-cells = <2>;
             tapping-term-ms = <175>;
-            quick_tap_ms = <0>;
+            quick_tap_ms = <150>;
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
@@ -123,7 +123,7 @@
             label = "HOMEROW_SHIFT_LEFT";
             #binding-cells = <2>;
             tapping-term-ms = <175>;
-            quick_tap_ms = <0>;
+            quick_tap_ms = <150>;
             flavor = "balanced";
             hold-trigger-key-positions = <RHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
@@ -133,7 +133,7 @@
             label = "HOMEROW_SHIFT_RIGHT";
             #binding-cells = <2>;
             tapping-term-ms = <175>;
-            quick_tap_ms = <0>;
+            quick_tap_ms = <150>;
             flavor = "balanced";
             hold-trigger-key-positions = <LHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
@@ -141,7 +141,7 @@
         tdreset: tap_dance_reset {
             compatible = "zmk,behavior-tap-dance";
             label = "TAP_DANCE_RESET_BOOTLOADER";
-            #binding-cells = <0>;
+            #binding-cells = <150>;
             tapping-term-ms = <TAPPING_TERM>;
             bindings = <&sys_reset>, <&bootloader>;
         };
