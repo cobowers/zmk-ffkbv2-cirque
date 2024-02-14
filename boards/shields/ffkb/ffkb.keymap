@@ -90,7 +90,7 @@
             tapping-term-ms = <175>;
             quick_tap_ms = <0>;
             flavor = "balanced";
-            hold-trigger-key-positions = <RHKEYS THUMBKEYS>
+            hold-trigger-key-positions = <RHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
         };
         hmr: homerow_shift {
@@ -100,7 +100,7 @@
             tapping-term-ms = <175>;
             quick_tap_ms = <0>;
             flavor = "balanced";
-            hold-trigger-key-positions = <LHKEYS THUMBKEYS>
+            hold-trigger-key-positions = <LHKEYS THUMBKEYS>;
             bindings = <&kp>, <&kp>;
         };
         hs: homerow_shift {
