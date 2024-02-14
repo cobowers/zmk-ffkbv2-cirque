@@ -147,7 +147,7 @@
         tdreset: tap_dance_reset {
             compatible = "zmk,behavior-tap-dance";
             label = "TAP_DANCE_RESET_BOOTLOADER";
-            #binding-cells = <150>;
+            #binding-cells = <0>;
             tapping-term-ms = <TAPPING_TERM>;
             bindings = <&sys_reset>, <&bootloader>;
         };
