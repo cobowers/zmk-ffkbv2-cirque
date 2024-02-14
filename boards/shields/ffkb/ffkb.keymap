@@ -69,7 +69,7 @@
 	combo_capsword {
 	    timeout-ms = <35>;
 	    key-positions = <16 20>;
-	    bindings = <&capsword>;
+	    bindings = <&caps_word>;
 	    layers = <0>;
 	};
     };
