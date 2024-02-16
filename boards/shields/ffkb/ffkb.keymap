@@ -7,7 +7,7 @@
 
 // global config settings
 #define TAPPING_TERM 200
-#define QUICK_TAP 175
+#define QUICK_TAP 180
 #define COMBO_TIMEOUT 35
 
 // layer aliases
@@ -163,7 +163,7 @@
 
             bindings = <
     &kp ESC    &kp Q        &kp W        &kp F        &kp P          &kp B                               &kp J                &kp L             &kp U        &kp Y        &kp SQT      &kp MINUS
-    &mkp LCLK  &hml LCTL A  &hml LGUI R  &hml LALT S  &hsl LSHIFT T  &kp G                 &kp C_MUTE    &kp M                &hsl RSHIFT N     &hmr RALT E  &hmr RGUI I  &hmr RCTL O  &kp SEMI
+    &mkp LCLK  &hml LCTL A  &hml LGUI R  &hml LALT S  &hsl LSHIFT T  &kp G                 &kp C_MUTE    &kp M                &hsr RSHIFT N     &hmr RALT E  &hmr RGUI I  &hmr RCTL O  &kp SEMI
     &mkp RCLK  &kp Z        &kp X        &kp C        &kp D          &kp V                               &kp K                &kp H             &kp COMMA    &kp DOT      &kp FSLH     &kp RSHFT
                             &kp C_MUTE   &kp RET      &mt LSHFT ESC  &lt L_NUM_SYM BSPC                  &lt L_NAV_MED SPACE  &lt L_NUMPAD TAB  &kp DEL      &kp C_MUTE
             >;
